@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,7 +7,11 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
+  Alert
 } from "react-native";
+
+import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type Props = {
   navigation: any;
@@ -15,6 +19,7 @@ type Props = {
 
 const OtpScreen: React.FC<Props> = ({ navigation }) => {
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
+  const [email, setEmail] = useState("")
   const inputs = useRef<(TextInput | null)[]>([]); //  store refs
 
   const handleChange = (text: string, index: number) => {
@@ -30,14 +35,53 @@ const OtpScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   const handleKeyPress = (e: any, index: number) => {
-    if (e.nativeEvent.key === "Backspace" && !otp[index] && index > 0) {
-      inputs.current[index - 1]?.focus(); // ✅ move back on delete
+    if (e.nativeEvent.key === "Backspace") {
+      if (otp[index] === "") {
+        if (index > 0) {
+          const newOtp = [...otp];
+          newOtp[index - 1] = ""; // Optional: clear previous input
+          setOtp(newOtp);
+          inputs.current[index - 1]?.focus();
+        }
+      } else {
+        const newOtp = [...otp];
+        newOtp[index] = ""; // Clear current input
+        setOtp(newOtp);
+      }
     }
-  };
+  
+};
 
-  const handleVerify = () => {
+
+useEffect(()=>{
+      const loadEmail = async () => {
+      const storedEmail = await AsyncStorage.getItem("userEmail");
+      if (storedEmail) {
+        setEmail(storedEmail);
+      } else {
+        // fallback: navigate back or ask again
+        navigation.goBack();
+      }
+    };
+    loadEmail();
+},[])
+
+  const handleVerify = async () => {
     const code = otp.join("");
-    console.log("Entered OTP:", code);
+    // console.log("Entered OTP:", code);
+    try {
+      const response = axios.post("http://10.0.2.2:8080/auth/registration/verifyOTP", {
+        method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, otp: code }),
+      })
+
+    } catch (error:any) {
+      console.error(error.response.data);
+      Alert.alert("Error", JSON.stringify(error.response.data));
+    }
+
+
     navigation.navigate("ScanDevice");
   };
 

@@ -10,10 +10,20 @@ import {
 import Icon from "react-native-vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 type Props = {
   navigation: any;
+  localStorage:any;
 };
+interface Storage {
+  setItem(key: string, value: string): void;
+  getItem(key: string): string | null;
+  // ... other methods
+}
+
+
 
 const RegisterScreen: React.FC<Props> = ({ navigation }) => {
   const [fullName, setFullName] = useState("");
@@ -27,8 +37,6 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
     try {
       setLoading(true);
 
-      
-
       // 👇 call REGISTER API (replace with your backend endpoint)
       const response = await axios.post("http://10.0.2.2:8080/auth/registration/start", {
         fullName,
@@ -36,6 +44,9 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
         email,
         password,
       });
+
+  
+     await AsyncStorage.setItem('takeEmail', 'email');
 
       console.log("Register Success:", response.data);
       Alert.alert("Success", "Registration successful!");
