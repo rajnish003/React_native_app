@@ -25,10 +25,10 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
       return;
     }
 
-    setLoading(true);
+    setLoading(true);            
 
     try {
-      const response = await axios.post("http://10.0.2.2:8080/auth/login", {
+      const response = await axios.post("http://172.22.208.1:8080/auth/login", {
         email: email,
         password: password,
       });

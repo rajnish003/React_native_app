@@ -13,10 +13,7 @@ import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-type Props = {
-  navigation: any;
-  localStorage:any;
-};
+
 interface Storage {
   setItem(key: string, value: string): void;
   getItem(key: string): string | null;
@@ -25,7 +22,7 @@ interface Storage {
 
 
 
-const RegisterScreen: React.FC<Props> = ({ navigation }) => {
+const RegisterScreen =({ navigation }: { navigation: any })  => {
   const [fullName, setFullName] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [email, setEmail] = useState("");
@@ -37,8 +34,8 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
     try {
       setLoading(true);
 
-      // 👇 call REGISTER API (replace with your backend endpoint)
-      const response = await axios.post("http://10.0.2.2:8080/auth/registration/start", {
+      // call REGISTER API (replace with your backend endpoint)
+      const response = await axios.post("http://172.22.208.1:8080/auth/registration/start", {
         fullName,
         phoneNo,
         email,
@@ -84,7 +81,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
       <TextInput
         placeholder="Enter Mobile No"
         value={phoneNo}
-        onChangeText={setPhoneNo} // ✅ fixed
+        onChangeText={setPhoneNo} // fixed
         style={styles.input}
         keyboardType="phone-pad"
       />

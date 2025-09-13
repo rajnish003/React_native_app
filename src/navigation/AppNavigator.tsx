@@ -10,7 +10,8 @@ import SetupScreen from "../screens/SetupScreen";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import OtpScreen from "../screens/OtpScreen";
-import ScanDevice from "../screens/ScanDevice";
+// import ScanDevice from "../screens/ScanDevice";
+import HomeScreen from "../screens/HomeScreen"
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -28,7 +29,8 @@ const AppNavigator = () => {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Otp" component={OtpScreen} />
-        <Stack.Screen name="ScanDevice" component={ScanDevice} />
+        {/* <Stack.Screen name="ScanDevice" component={ScanDevice} /> */}
+        <Stack.Screen name="Home" component={HomeScreen} />
 
         {/* If needed later */}
         {/* <Stack.Screen

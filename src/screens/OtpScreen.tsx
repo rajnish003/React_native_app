@@ -7,7 +7,8 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
-  Alert
+  Alert,
+  
 } from "react-native";
 
 import axios from "axios";
@@ -55,7 +56,7 @@ const OtpScreen: React.FC<Props> = ({ navigation }) => {
 
 useEffect(()=>{
       const loadEmail = async () => {
-      const storedEmail = await AsyncStorage.getItem("userEmail");
+      const storedEmail = await AsyncStorage.getItem("takeEmail");
       if (storedEmail) {
         setEmail(storedEmail);
       } else {
@@ -70,11 +71,10 @@ useEffect(()=>{
     const code = otp.join("");
     // console.log("Entered OTP:", code);
     try {
-      const response = axios.post("http://10.0.2.2:8080/auth/registration/verifyOTP", {
-        method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, otp: code }),
-      })
+  const response = await axios.post("http://172.22.208.1:8080/auth/registration/verifyOTP", {
+   email,
+   otp: code,
+   });  
 
     } catch (error:any) {
       console.error(error.response.data);
@@ -82,7 +82,7 @@ useEffect(()=>{
     }
 
 
-    navigation.navigate("ScanDevice");
+    navigation.navigate("Home");
   };
 
   return (
