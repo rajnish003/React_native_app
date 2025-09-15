@@ -6,9 +6,9 @@ import {
   ScrollView,
   Switch,
   TouchableOpacity,
-  SafeAreaView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const HomeScreen = ({ navigation }: { navigation: any }) => {
   // States for device toggles
@@ -23,22 +23,34 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
         {/* Header */}
+        <View style={styles.mainHeader}>
         <View style={styles.header}>
           <View>
             <Text style={styles.greeting}>Good Evening, Alex</Text>
-            <Text style={styles.dateTime}>Friday, August 8 - 17:16</Text>
+            <Text style={styles.date}>Friday, August 8 - 17:16</Text>
+            <Text style={styles.Time}>17:16</Text>
           </View>
           <View style={styles.weather}>
             <Icon name="sunny" size={24} color="#FFD700" />
-            <Text style={styles.temp}>24°C</Text>
+            <Text style={styles.temp}>24°C</Text> {'\n'}
+            <Text style={styles.location}>San Fransisco</Text>
+
           </View>
         </View>
 
         {/* Energy Card */}
         <View style={styles.card}>
+        <View style={styles.mainCard}>
+         <View style={styles.C_titleSec}> 
           <Text style={styles.cardTitle}>Today's Energy</Text>
           <Text style={styles.energyValue}>24.7 kWh</Text>
-          <Text style={styles.energySave}>12.5% saved vs yesterday</Text>
+          </View>
+          <View style={styles.C_energySec}>
+
+          <Text style={styles.energySave}>12.5% saved</Text>
+          <Text style={styles.energySaveDay}>vs yesterday</Text>
+          </View>
+        </View>
           <View style={styles.energyBar}>
             <View style={styles.energyProgress} />
           </View>
@@ -47,7 +59,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
         {/* Weather info */}
         <Text style={styles.subInfo}>Sunny, feels like 26°C</Text>
         <Text style={styles.subInfo}>Humidity: 65%  Wind: 8km/hr</Text>
-
+</View>
         {/* Tabs */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.tabs}>
           {['All', 'Living Room', 'Bedroom', 'Dining Room', 'Kitchen'].map((tab, index) => (
@@ -115,25 +127,56 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F4F9FF' },
-  scroll: { padding: 16 },
+  scroll: { padding: 0 },
+
+  mainHeader:{
+     backgroundColor:'#08B7F6',
+     margin:0,
+     width: '100%',
+     padding: 18, 
+  },
+
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor:'#08B7F6'
   },
-  greeting: { fontSize: 20, fontWeight: '600' },
-  dateTime: { color: '#777', fontSize: 13 },
+  greeting: {color:'#F9F9F9', fontSize: 20, fontWeight: '600' },
+  date: { color: '#F9F9F9', fontSize: 12 },
+  Time: { color: '#F9F9F9', fontSize: 12,fontWeight:'600' },
   weather: { flexDirection: 'row', alignItems: 'center' },
-  temp: { marginLeft: 6, fontSize: 18 },
+  temp: { color:'#F9F9F9',marginLeft: 6, fontSize: 18 },
+  location: { color:'#F9F9F9',marginLeft: 6, fontSize: 18 },
+  // card section
   card: {
-    backgroundColor: '#E1F5FE',
+    backgroundColor: '#08B7F6',
     borderRadius: 12,
+    borderColor:'#F9F9F9',
+    borderWidth: 1,
     padding: 16,
     marginTop: 16,
+    width:390,
+    height:97,
   },
-  cardTitle: { fontSize: 16, fontWeight: '500' },
-  energyValue: { fontSize: 24, fontWeight: 'bold', marginTop: 4 },
-  energySave: { fontSize: 12, color: 'green', marginVertical: 4 },
+
+  mainCard:{
+    flex:1,
+    flexDirection:'row',
+    justifyContent:'space-between',
+  },
+
+  C_titleSec:{
+    
+  },
+  C_energySec:{
+
+  },
+  
+  cardTitle: { color:'#F9F9F9', fontSize: 12, fontWeight: '500' },
+  energyValue: { color:'#F9F9F9', fontSize: 12, fontWeight: 'bold', marginTop: 4 },
+  energySave: { fontSize: 12, color: '#4DE600',  },
+  energySaveDay: { fontSize: 12, color: '#F9F9F9' },
   energyBar: {
     height: 8,
     backgroundColor: '#B3E5FC',
@@ -144,7 +187,7 @@ const styles = StyleSheet.create({
   energyProgress: {
     width: '60%',
     height: '100%',
-    backgroundColor: '#0288D1',
+    backgroundColor: '#B7E600',
   },
   subInfo: { fontSize: 13, color: '#666', marginTop: 4 },
   tabs: { marginTop: 16 },

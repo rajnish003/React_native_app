@@ -23,7 +23,7 @@ interface Storage {
 
 
 const RegisterScreen =({ navigation }: { navigation: any })  => {
-  const [fullName, setFullName] = useState("");
+  const [fullname, setFullname] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,8 +35,8 @@ const RegisterScreen =({ navigation }: { navigation: any })  => {
       setLoading(true);
 
       // call REGISTER API (replace with your backend endpoint)
-      const response = await axios.post("http://172.22.208.1:8080/auth/registration/start", {
-        fullName,
+      const response = await axios.post("http://10.0.2.2:4000/v1/auth/signup", {
+        fullname,
         phoneNo,
         email,
         password,
@@ -72,8 +72,8 @@ const RegisterScreen =({ navigation }: { navigation: any })  => {
       {/* Full Name */}
       <TextInput
         placeholder="Enter Full Name"
-        value={fullName}
-        onChangeText={setFullName}
+        value={fullname}
+        onChangeText={setFullname}
         style={styles.input}
       />
 

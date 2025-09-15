@@ -28,7 +28,7 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
     setLoading(true);            
 
     try {
-      const response = await axios.post("http://172.22.208.1:8080/auth/login", {
+      const response = await axios.post("http://10.0.2.2:4000/v1/auth/login", {
         email: email,
         password: password,
       });
@@ -38,7 +38,7 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
       Alert.alert("Success", JSON.stringify(response.data));
 
       //  Navigate only after success
-      navigation.navigate("ScanDevice");
+      navigation.navigate("Home");
     } catch (error: any) {
       console.error("Login Error:", error);
       Alert.alert("Error", "Invalid credentials or server error");

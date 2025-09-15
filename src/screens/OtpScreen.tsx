@@ -71,7 +71,7 @@ useEffect(()=>{
     const code = otp.join("");
     // console.log("Entered OTP:", code);
     try {
-  const response = await axios.post("http://172.22.208.1:8080/auth/registration/verifyOTP", {
+  const response = await axios.post("http://10.0.2.2:4000/v1/otp/verify-otp", {
    email,
    otp: code,
    });  
@@ -82,7 +82,7 @@ useEffect(()=>{
     }
 
 
-    navigation.navigate("Home");
+    navigation.navigate("MainTabs");
   };
 
   return (

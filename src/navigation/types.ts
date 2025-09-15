@@ -8,6 +8,6 @@ export type RootStackParamList = {
   Setup: undefined;
   Login: { redirect?: string };
   Register:undefined;
-   Otp: { redirect?: string }
-  ScanDevice:undefined;
+  Otp: { redirect?: string }
+  MainTabs:undefined;
 };
