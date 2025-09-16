@@ -35,18 +35,18 @@ const RegisterScreen =({ navigation }: { navigation: any })  => {
       setLoading(true);
 
       // call REGISTER API (replace with your backend endpoint)
-      const response = await axios.post("http://10.0.2.2:4000/v1/auth/signup", {
-        fullname,
-        phoneNo,
-        email,
-        password,
-      });
+      // const response = await axios.post("http://10.0.2.2:4000/v1/auth/signup", {
+      //   fullname,
+      //   phoneNo,
+      //   email,
+      //   password,
+      // });
 
   
-     await AsyncStorage.setItem('takeEmail', 'email');
+    //  await AsyncStorage.setItem('takeEmail', 'email');
 
-      console.log("Register Success:", response.data);
-      Alert.alert("Success", "Registration successful!");
+    //   console.log("Register Success:", response.data);
+    //   Alert.alert("Success", "Registration successful!");
 
       // Navigate to OTP screen (or Login)
       navigation.navigate("Otp");

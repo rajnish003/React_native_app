@@ -68,18 +68,18 @@ useEffect(()=>{
 },[])
 
   const handleVerify = async () => {
-    const code = otp.join("");
-    // console.log("Entered OTP:", code);
-    try {
-  const response = await axios.post("http://10.0.2.2:4000/v1/otp/verify-otp", {
-   email,
-   otp: code,
-   });  
+  //   const code = otp.join("");
+  //   // console.log("Entered OTP:", code);
+  //   try {
+  // const response = await axios.post("http://10.0.2.2:4000/v1/otp/verify-otp", {
+  //  email,
+  //  otp: code,
+  //  });  
 
-    } catch (error:any) {
-      console.error(error.response.data);
-      Alert.alert("Error", JSON.stringify(error.response.data));
-    }
+  //   } catch (error:any) {
+  //     console.error(error.response.data);
+  //     Alert.alert("Error", JSON.stringify(error.response.data));
+  //   }
 
 
     navigation.navigate("MainTabs");
