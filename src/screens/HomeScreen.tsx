@@ -9,16 +9,49 @@ import {
   Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Slider from '@react-native-community/slider';
+// import { Ionicons } from '@expo/vector-icons'; // Added icon import
+import { StackNavigationProp } from '@react-navigation/stack'; // For navigation typing
 
-const HomeScreen = ({ navigation }: { navigation: any }) => {
+// Define navigation prop type
+type RootStackParamList = {
+  Home: undefined;
+  // Add other screens here
+};
+
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+
+interface Props {
+  navigation: HomeScreenNavigationProp;
+}
+
+const HomeScreen: React.FC<Props> = ({ navigation }) => {
   // States for device toggles
-  const [livingRoomLight, setLivingRoomLight] = useState(true);
-  const [ceilingFan, setCeilingFan] = useState(false);
-  const [ac, setAC] = useState(true);
-  const [smartTV, setSmartTV] = useState(false);
-  const [bedroomLight, setBedroomLight] = useState(false);
-  const [securityCamera, setSecurityCamera] = useState(true);
+  const [livingRoomLight, setLivingRoomLight] = useState<number>(50);
+  const [ceilingFan, setCeilingFan] = useState<number>(50);
+  const [ac, setAC] = useState<boolean>(true);
+  const [smartTV, setSmartTV] = useState<boolean>(false);
+  const [bedroomLight, setBedroomLight] = useState<number>(50);
+  const [securityCamera, setSecurityCamera] = useState<boolean>(true);
+  const [activeTab, setActiveTab] = useState<string>('All');
+  const [livingRoomBrightness, setLivingRoomBrightness] = useState<number>(50);
+  const [ceilingFanBrightness, setCeilingFanBrightness] = useState<number>(50);
+  const [acBrightness, setAcBrightness] = useState<number>(50); // Changed to number
+  const [smartTvBrightness, setSmartTvBrightness] = useState<number>(50); // Changed to number
+  const [bedroomBrightness, setBedroomBrightness] = useState<number>(50); // Changed to number
+  const [cameraBrightness, setCameraBrightness] = useState<number>(50); // Changed to number
+
+  // Get current date and time
+  const currentDate = new Date();
+  const dateString = currentDate.toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  });
+  const timeString = currentDate.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -28,8 +61,8 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
           <View style={styles.header}>
             <View>
               <Text style={styles.greeting}>Good Evening, Rajnish</Text>
-              <Text style={styles.date}>Friday, August 8</Text>
-              <Text style={styles.Time}>17:16</Text>
+              <Text style={styles.date}>{dateString}</Text>
+              <Text style={styles.Time}>{timeString}</Text>
             </View>
             <View style={styles.weather}>
               <View style={styles.temprature}>
@@ -40,7 +73,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
                 <Text style={styles.temp}>24°C</Text>
               </View>
               <View style={styles.Mainlocation}>
-                <Icon name="location-outline" size={16} color="#F9F9F9" />
+                {/* <Ionicons name="location-outline" size={16} color="#F9F9F9" /> */}
                 <Text style={styles.location}>San Francisco</Text>
               </View>
             </View>
@@ -61,7 +94,7 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
                   <Text style={styles.energyValue}>24.7 kWh</Text>
                 </View>
                 <View>
-                  <Text style={styles.energySave}>12.5% saved</Text>
+                  <Text style={styles.energySave}>12.5% Saved</Text>
                   <Text style={styles.energySaveDay}>vs yesterday</Text>
                 </View>
               </View>
@@ -85,7 +118,6 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
                 />
                 <Text style={styles.weatherText}>2 PM</Text>
               </View>
-
               <View>
                 <Image
                   source={require('../../assets/icons/sunCloudyIcon.png')}
@@ -93,7 +125,6 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
                 />
                 <Text style={styles.weatherText}>4 PM</Text>
               </View>
-
               <View>
                 <Image
                   source={require('../../assets/icons/cloudsIcon.png')}
@@ -113,12 +144,28 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
         >
           {['All', 'Living Room', 'Bedroom', 'Dining Room', 'Kitchen'].map(
             (tab, index) => (
-              <TouchableOpacity key={index} style={styles.tab}>
-                <Text style={styles.tabText}>{tab}</Text>
+              <TouchableOpacity
+                key={index}
+                style={[styles.tab, activeTab === tab && styles.activeTab]}
+                onPress={() => setActiveTab(tab)}
+              >
+                <Text
+                  style={[
+                    styles.tabText,
+                    activeTab === tab && styles.activeTabText,
+                  ]}
+                >
+                  {tab}
+                </Text>
               </TouchableOpacity>
             ),
           )}
         </ScrollView>
+
+        <View style={styles.DeviceControll}>
+          <Text>Device Controls</Text>
+          <Text style={styles.addDeviceText}>+ Add Devices</Text>
+        </View>
 
         {/* Device Controls */}
         <View style={styles.deviceGrid}>
@@ -127,28 +174,92 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
               label: 'Living Room Light',
               state: livingRoomLight,
               setter: setLivingRoomLight,
+              brightness: livingRoomBrightness,
+              setBrightness: setLivingRoomBrightness,
+              image: require('../../assets/icons/lightIcon.png'), // Use appropriate icon
             },
-            { label: 'Ceiling Fan', state: ceilingFan, setter: setCeilingFan },
-            { label: 'Air Conditioner', state: ac, setter: setAC },
-            { label: 'Smart TV', state: smartTV, setter: setSmartTV },
+            {
+              label: 'Ceiling Fan',
+              state: ceilingFan,
+              setter: setCeilingFan,
+              brightness: ceilingFanBrightness,
+              setBrightness: setCeilingFanBrightness,
+              image: require('../../assets/icons/fanIcon.png'), // Use appropriate icon
+            },
+            {
+              label: 'Air Conditioner',
+              state: ac,
+              setter: setAC,
+              brightness: acBrightness,
+              setBrightness: setAcBrightness,
+              image: require('../../assets/icons/acIcon.png'), // Use appropriate icon
+            },
+            {
+              label: 'Smart TV',
+              state: smartTV,
+              setter: setSmartTV,
+              brightness: smartTvBrightness,
+              setBrightness: setSmartTvBrightness,
+              image: require('../../assets/icons/tvIcon.png'), // Use appropriate icon
+            },
             {
               label: 'Bedroom Light',
               state: bedroomLight,
               setter: setBedroomLight,
+              brightness: bedroomBrightness,
+              setBrightness: setBedroomBrightness,
+              image: require('../../assets/icons/lightIcon.png'), // Use appropriate icon
             },
             {
               label: 'Security Camera',
               state: securityCamera,
               setter: setSecurityCamera,
+              brightness: cameraBrightness,
+              setBrightness: setCameraBrightness,
+              image: require('../../assets/icons/cameraIcon.png'), // Use appropriate icon
             },
           ].map((device, i) => (
             <View key={i} style={styles.deviceCard}>
-              <Text style={styles.deviceLabel}>{device.label}</Text>
-              <Switch
-                value={device.state}
-                onValueChange={device.setter}
-                thumbColor={device.state ? '#00BFFF' : '#ccc'}
+              <Image
+                source={device.image}
+                style={{
+                  width: 40,
+                  height: 40,
+                  marginBottom: 10,
+                  tintColor: device.state ? '#00BFFF' : '#999',
+                  opacity: device.state ? 1 : 0.5,
+                }}
+                resizeMode="contain"
               />
+              <View style={styles.deviceHeader}>
+                <Text style={styles.deviceLabel}>{device.label}</Text>
+                <Switch
+                  value={typeof device.state === 'boolean' ? device.state : device.state > 0}
+                  onValueChange={(value) =>
+                    typeof device.state === 'boolean'
+                      ? device.setter(value)
+                      : device.setter(value ? 50 : 0)
+                  }
+                  thumbColor={typeof device.state === 'boolean' ? (device.state ? '#00BFFF' : '#ccc') : (device.state > 0 ? '#00BFFF' : '#ccc')}
+                />
+              </View>
+              {(typeof device.state === 'boolean' ? device.state : device.state > 0) && (
+                <View style={styles.brightnessContainer}>
+                  <Text style={styles.brightnessText}>
+                    Brightness: {device.brightness}%
+                  </Text>
+                  <Slider
+                    style={{ width: '100%' }}
+                    minimumValue={0}
+                    maximumValue={100}
+                    step={1}
+                    value={device.brightness}
+                    minimumTrackTintColor="#00BFFF"
+                    maximumTrackTintColor="#ccc"
+                    onValueChange={device.setBrightness}
+                  />
+                </View>
+              )}
             </View>
           ))}
         </View>
@@ -176,7 +287,6 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
             <View style={[styles.graphBar, { height: 55 }]} />
           </View>
 
-          {/* Energy Tip */}
           <Text style={styles.energyTip}>
             Your A/C is running efficiently! Consider raising temp by 1°C to
             save 6–8% more energy.
@@ -192,16 +302,12 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F4F9FF' },
   scroll: { padding: 0 },
-
   mainHeader: {
     backgroundColor: '#08B7F6',
     width: '100%',
     padding: 18,
   },
-  sunIcon: {
-    width: 25,
-    height: 25,
-  },
+  sunIcon: { width: 25, height: 25 },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -216,8 +322,6 @@ const styles = StyleSheet.create({
   location: { color: '#F9F9F9', marginLeft: 6, fontSize: 12 },
   temprature: { flexDirection: 'row' },
   Mainlocation: { flexDirection: 'row' },
-
-  // card section
   card: {
     backgroundColor: '#08B7F6',
     borderRadius: 12,
@@ -228,23 +332,14 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 97,
   },
-  lowerCard: {
-    flexDirection: 'row',
-  },
-
+  lowerCard: { flexDirection: 'row' },
   mainCard: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  Mainenergyimage: {
-    marginRight: 4,
-  },
-  energyimage: {
-    height: 38,
-    width: 38,
-  },
-
+  Mainenergyimage: { marginRight: 4 },
+  energyimage: { height: 38, width: 38 },
   cardTitle: { color: '#F9F9F9', fontSize: 12, fontWeight: '500' },
   energyValue: {
     color: '#F9F9F9',
@@ -270,39 +365,45 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-
   MainsunImage: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     marginTop: 8,
     gap: 30,
   },
-
-  sunImage: {
-    width: 32,
-    height: 32,
-  },
-
-  weatherText: {
-    color: '#f9f9f9',
-  },
-
-  subInfo: { fontSize: 13, color: '#f9f9f9', marginTop: 8, fontWeight: 400 },
-  subInfo2: { fontSize: 13, color: '#f9f9f9', marginTop: 2, fontWeight: 400 },
-  tabs: { marginTop: 16 },
+  sunImage: { width: 32, height: 32 },
+  weatherText: { color: '#f9f9f9' },
+  subInfo: { fontSize: 13, color: '#f9f9f9', marginTop: 8, fontWeight: '400' },
+  subInfo2: { fontSize: 13, color: '#f9f9f9', marginTop: 2, fontWeight: '400' },
+  tabs: { marginTop: 16, marginLeft: 10 },
   tab: {
     backgroundColor: '#D6F0FF',
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 16,
     marginRight: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 5,
+    marginBottom: 10,
   },
   tabText: { fontSize: 14 },
+  activeTab: { backgroundColor: '#08B7F6' },
+  activeTabText: { color: '#fff', fontWeight: '600' },
+  DeviceControll: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // Fixed alignment
+    paddingHorizontal: 15,
+    marginTop: 10,
+  },
+  addDeviceText: { fontWeight: '400', color: '#08B7F6' },
   deviceGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    marginTop: 16,
+    marginTop: 10,
+    padding: 15,
   },
   deviceCard: {
     width: '48%',
@@ -313,14 +414,23 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOpacity: 0.05,
     shadowRadius: 5,
-    elevation: 2,
+    elevation: 4,
+    alignItems: 'center',
   },
-  deviceLabel: { fontSize: 14, marginBottom: 8 },
+  deviceHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+  deviceLabel: { fontSize: 14, fontWeight: '500' },
+  brightnessContainer: { marginTop: 10, width: '100%' },
+  brightnessText: { fontSize: 12, color: '#555', marginBottom: 4 },
   analytics: {
     backgroundColor: '#fff',
     padding: 16,
     borderRadius: 12,
-    marginTop: 20,
+    margin: 15, // Adjusted margin
     shadowColor: '#000',
     shadowOpacity: 0.05,
     shadowRadius: 5,
