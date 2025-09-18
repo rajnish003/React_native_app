@@ -54,18 +54,18 @@ const OtpScreen: React.FC<Props> = ({ navigation }) => {
 };
 
 
-useEffect(()=>{
-      const loadEmail = async () => {
-      const storedEmail = await AsyncStorage.getItem("takeEmail");
-      if (storedEmail) {
-        setEmail(storedEmail);
-      } else {
-        // fallback: navigate back or ask again
-        navigation.goBack();
-      }
-    };
-    loadEmail();
-},[])
+// useEffect(()=>{
+//       const loadEmail = async () => {
+//       const storedEmail = await AsyncStorage.getItem("takeEmail");
+//       if (storedEmail) {
+//         setEmail(storedEmail);
+//       } else {
+//         // fallback: navigate back or ask again
+//         navigation.goBack();
+//       }
+//     };
+//     loadEmail();
+// },[])
 
   const handleVerify = async () => {
   //   const code = otp.join("");
@@ -103,13 +103,13 @@ useEffect(()=>{
         {otp.map((digit, index) => (
           <TextInput
             key={index}
-            ref={(ref) => (inputs.current[index] = ref)} // ✅ assign ref
+            // ref={(ref) => (inputs.current[index] = ref)} 
             style={styles.otpInput}
             keyboardType="number-pad"
             maxLength={1}
             value={digit}
             onChangeText={(text) => handleChange(text, index)}
-            onKeyPress={(e) => handleKeyPress(e, index)} // ✅ handle backspace
+            onKeyPress={(e) => handleKeyPress(e, index)} //  handle backspace
           />
         ))}
       </View>
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 25,
     backgroundColor: "#fff",
-    marginTop: 100,
+    // marginTop: 100,
     alignItems: "center",
   },
   title: {

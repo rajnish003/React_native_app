@@ -36,8 +36,8 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const [activeTab, setActiveTab] = useState<string>('All');
   const [livingRoomBrightness, setLivingRoomBrightness] = useState<number>(50);
   const [ceilingFanBrightness, setCeilingFanBrightness] = useState<number>(50);
-  const [acBrightness, setAcBrightness] = useState<number>(50); // Changed to number
-  const [smartTvBrightness, setSmartTvBrightness] = useState<number>(50); // Changed to number
+  const [acTemp, setAcTemp] = useState<string>('22°C'); // Changed to number
+  const [smartTvBrightness, setSmartTvBrightness] = useState<boolean>(true); // Changed to number
   const [bedroomBrightness, setBedroomBrightness] = useState<number>(50); // Changed to number
   const [cameraBrightness, setCameraBrightness] = useState<number>(50); // Changed to number
 
@@ -54,7 +54,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   });
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
         {/* Header */}
         <View style={styles.mainHeader}>
@@ -176,7 +176,10 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
               setter: setLivingRoomLight,
               brightness: livingRoomBrightness,
               setBrightness: setLivingRoomBrightness,
-              image: require('../../assets/icons/lightIcon.png'), // Use appropriate icon
+              image: require('../../assets/icons/light-bulb.png'),
+              color: '#FFB325',
+              desc: 'Brightness',
+              flag:1,
             },
             {
               label: 'Ceiling Fan',
@@ -184,23 +187,31 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
               setter: setCeilingFan,
               brightness: ceilingFanBrightness,
               setBrightness: setCeilingFanBrightness,
-              image: require('../../assets/icons/fanIcon.png'), // Use appropriate icon
+              image: require('../../assets/icons/fan.png'),
+              color: '#08B7F6',
+              desc: 'Speed',
+              flag:1,
             },
             {
               label: 'Air Conditioner',
               state: ac,
               setter: setAC,
-              brightness: acBrightness,
-              setBrightness: setAcBrightness,
-              image: require('../../assets/icons/acIcon.png'), // Use appropriate icon
+              // brightness: acTemp,
+              // setBrightness: setAcTemp,
+              image: require('../../assets/icons/air-conditioner.png'),
+              color: '#08B7F6',
+              desc: 'Temprature',
+              
             },
             {
               label: 'Smart TV',
               state: smartTV,
               setter: setSmartTV,
-              brightness: smartTvBrightness,
-              setBrightness: setSmartTvBrightness,
-              image: require('../../assets/icons/tvIcon.png'), // Use appropriate icon
+              // brightness: smartTvBrightness,
+              // setBrightness: setSmartTvBrightness,
+              image: require('../../assets/icons/tv.png'),
+              color: '#F3439E',
+              desc:'ON',
             },
             {
               label: 'Bedroom Light',
@@ -208,7 +219,10 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
               setter: setBedroomLight,
               brightness: bedroomBrightness,
               setBrightness: setBedroomBrightness,
-              image: require('../../assets/icons/lightIcon.png'), // Use appropriate icon
+              image: require('../../assets/icons/light-bulb.png'),
+              color: '#FFB325',
+              desc: 'Brightness',
+              flag:1,
             },
             {
               label: 'Security Camera',
@@ -216,39 +230,68 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
               setter: setSecurityCamera,
               brightness: cameraBrightness,
               setBrightness: setCameraBrightness,
-              image: require('../../assets/icons/cameraIcon.png'), // Use appropriate icon
+              image: require('../../assets/icons/cctv-camera.png'),
+              color: '#F3439E',
+              desc: 'ON'
             },
           ].map((device, i) => (
             <View key={i} style={styles.deviceCard}>
-              <Image
-                source={device.image}
-                style={{
-                  width: 40,
-                  height: 40,
-                  marginBottom: 10,
-                  tintColor: device.state ? '#00BFFF' : '#999',
-                  opacity: device.state ? 1 : 0.5,
-                }}
-                resizeMode="contain"
-              />
-              <View style={styles.deviceHeader}>
-                <Text style={styles.deviceLabel}>{device.label}</Text>
+              <View style={styles.maindeviceHeader}>
+                <View
+                  style={{
+                    backgroundColor: device.state ? device.color : '#D9D9D9',
+                    padding: 10,
+                    borderRadius: 20,
+                  }}
+                >
+                  <Image
+                    source={device.image}
+                    style={{
+                      width: 30,
+                      height: 30,
+                      tintColor: '#FFFFFF',
+                      opacity: device.state ? 2 : 0.5,
+                      borderRadius: 10,
+                      padding: 10,
+                    }}
+                    resizeMode="contain"
+                  />
+                </View>
                 <Switch
-                  value={typeof device.state === 'boolean' ? device.state : device.state > 0}
-                  onValueChange={(value) =>
+                  value={
+                    typeof device.state === 'boolean'
+                      ? device.state
+                      : device.state > 0
+                  }
+                  onValueChange={value =>
                     typeof device.state === 'boolean'
                       ? device.setter(value)
                       : device.setter(value ? 50 : 0)
                   }
-                  thumbColor={typeof device.state === 'boolean' ? (device.state ? '#00BFFF' : '#ccc') : (device.state > 0 ? '#00BFFF' : '#ccc')}
+                  thumbColor={
+                    typeof device.state === 'boolean'
+                      ? device.state
+                        ? '#00BFFF'
+                        : '#ccc'
+                      : device.state > 0
+                      ? '#00BFFF'
+                      : '#ccc'
+                  }
                 />
               </View>
-              {(typeof device.state === 'boolean' ? device.state : device.state > 0) && (
+              <View style={styles.deviceHeader}>
+                <Text style={styles.deviceLabel}>{device.label}</Text>
+              </View>
+              {(
+                typeof device.state === 'boolean'
+                  ? device.state
+                  : device.state > 0
+              ) ? (
                 <View style={styles.brightnessContainer}>
                   <Text style={styles.brightnessText}>
-                    Brightness: {device.brightness}%
+                    {device.desc} : {(device.flag === 1 ? device.brightness : '')}
                   </Text>
-                  <Slider
+                  {/* <Slider
                     style={{ width: '100%' }}
                     minimumValue={0}
                     maximumValue={100}
@@ -257,7 +300,11 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                     minimumTrackTintColor="#00BFFF"
                     maximumTrackTintColor="#ccc"
                     onValueChange={device.setBrightness}
-                  />
+                  /> */}
+                </View>
+              ) : (
+                <View style={styles.brightnessContainer}>
+                  <Text style={styles.brightnessText}>OFF</Text>
                 </View>
               )}
             </View>
@@ -289,23 +336,24 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
           <Text style={styles.energyTip}>
             Your A/C is running efficiently! Consider raising temp by 1°C to
-            save 6–8% more energy.
+            save 6-8% more energy.
           </Text>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F4F9FF' },
+  container: { backgroundColor: '#fff' },
   scroll: { padding: 0 },
   mainHeader: {
-    backgroundColor: '#08B7F6',
+    backgroundColor: '#08B7F6', //08B7F6
     width: '100%',
     padding: 18,
+    paddingTop: 60,
   },
   sunIcon: { width: 25, height: 25 },
   header: {
@@ -417,15 +465,23 @@ const styles = StyleSheet.create({
     elevation: 4,
     alignItems: 'center',
   },
+
+  maindeviceHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 50,
+  },
+
   deviceHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
+    marginTop: 5,
   },
   deviceLabel: { fontSize: 14, fontWeight: '500' },
   brightnessContainer: { marginTop: 10, width: '100%' },
-  brightnessText: { fontSize: 12, color: '#555', marginBottom: 4 },
+  brightnessText: { fontSize: 12, color: '#555', marginBottom: 8 },
   analytics: {
     backgroundColor: '#fff',
     padding: 16,

@@ -20,9 +20,12 @@ const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Welcome"
-        screenOptions={{ headerShown: false }}
-      >
+  initialRouteName="Welcome"
+  screenOptions={{
+    headerShown: false,
+    animation: "slide_from_right", //  adds smooth transition
+  }}
+>
         {/* 👇 keep Welcome screen here */}
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen name="Welcome2" component={WelcomeScreen2} />

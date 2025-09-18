@@ -1,10 +1,10 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Icon from "react-native-vector-icons/Ionicons";
+// import Icon from "react-native-vector-icons/Ionicons";
 
 // Screens
 import HomeScreen from "../screens/HomeScreen";
-import { View, Text } from "react-native";
+import { View, Text ,Image } from "react-native";
 
 const AnalyticsScreen = () => (
   <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -26,22 +26,38 @@ const Tab = createBottomTabNavigator();
 
 const BottomTabs = () => {
   return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        headerShown: false,
-        tabBarIcon: ({ color, size }) => {
-          let iconName = "";
-          if (route.name === "Home") iconName = "home-outline";
-          else if (route.name === "Analytics") iconName = "stats-chart-outline";
-          else if (route.name === "Security") iconName = "shield-checkmark-outline";
-          else if (route.name === "Settings") iconName = "settings-outline";
+   <Tab.Navigator
+  screenOptions={({ route }) => ({
+    headerShown: false,
+    tabBarIcon: ({ focused, size }) => {
+      let iconSource;
 
-          return <Icon name={iconName} size={size} color={color} />;
-        },
-        tabBarActiveTintColor: "#0288D1",
-        tabBarInactiveTintColor: "#555",
-      })}
-    >
+      if (route.name === "Home") {
+        iconSource = require("../../assets/icons/home.png");
+      } else if (route.name === "Analytics") {
+        iconSource = require("../../assets/icons/analysis.png");
+      } else if (route.name === "Security") {
+        iconSource = require("../../assets/icons/security.png");
+      } else if (route.name === "Settings") {
+        iconSource = require("../../assets/icons/settings.png");
+      }
+
+      return (
+        <Image
+          source={iconSource}
+          style={{
+            width: size,
+            height: size,
+            tintColor: focused ? "#0288D1" : "#555", // ✅ tint image like icon
+          }}
+          resizeMode="contain"
+        />
+      );
+    },
+    tabBarActiveTintColor: "#0288D1",
+    tabBarInactiveTintColor: "#555",
+  })}
+>
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Analytics" component={AnalyticsScreen} />
       <Tab.Screen name="Security" component={SecurityScreen} />

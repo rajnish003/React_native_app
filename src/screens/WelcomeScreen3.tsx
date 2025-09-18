@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     // justifyContent: 'center',
-    marginTop: 50,
+    // marginTop: 50,
     backgroundColor: '#fff',
   },
   skipButton: {
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   skipText: {
     color: '#757575',
     fontSize: 16,
-
+     marginTop:20,
   },
   titleWrapper: {
   marginTop: 20,       // less space above titles

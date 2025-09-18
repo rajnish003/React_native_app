@@ -44,12 +44,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     // justifyContent: 'center',
-    marginTop: 50,
+    // marginTop: 50,
     backgroundColor: '#fff',
   },
   skipButton: {
     alignSelf: 'flex-end',
     padding: 10,
+    marginTop:20,
   },
   skipText: {
     color: '#757575',
@@ -77,14 +78,14 @@ const styles = StyleSheet.create({
     color: '#757575',
     textAlign: 'center',
      marginBottom: 15,    // tighter spacing before image
-  paddingHorizontal: 30,
+    paddingHorizontal: 30,
   },
   //
  image: {
     width: 500,
     height: 500,
     resizeMode: 'contain', // or 'cover', 'stretch', etc.
-    marginTop:10,
+    // marginTop:10,
   },
   nextButton: {
     backgroundColor: '#53CDF9',

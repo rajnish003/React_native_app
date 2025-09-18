@@ -44,12 +44,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     // justifyContent: 'center',
-    marginTop: 50,
+    // marginTop: 50,
     backgroundColor: '#fff',
   },
   skipButton: {
     alignSelf: 'flex-end',
     padding: 10,
+     marginTop:20,
   },
   skipText: {
     color: '#757575',

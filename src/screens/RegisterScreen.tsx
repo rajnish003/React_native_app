@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 25,
     backgroundColor: "#fff",
-    marginTop: 40,
+    // marginTop: 40,
   },
   title: {
     fontSize: 40,
@@ -265,6 +265,6 @@ const styles = StyleSheet.create({
   loginContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 120,
+    marginTop: 80,
   },
 });
