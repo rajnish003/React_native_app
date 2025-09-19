@@ -31,7 +31,7 @@ const WelcomeScreen2 = ({ navigation }: { navigation: any }) => {
       {/* Next Button */}
       <TouchableOpacity
         style={styles.nextButton}
-        onPress={() => navigation.navigate('welcome3')}
+        onPress={() => navigation.navigate('Welcome3')}
       >
         <Text style={styles.nextText}>Next &gt;</Text>
       </TouchableOpacity>

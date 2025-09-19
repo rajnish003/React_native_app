@@ -8,21 +8,16 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Slider from '@react-native-community/slider';
-// import { Ionicons } from '@expo/vector-icons'; // Added icon import
 import { StackNavigationProp } from '@react-navigation/stack'; // For navigation typing
+import { RootStackParamList } from '../navigation/types';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-// Define navigation prop type
-type RootStackParamList = {
-  Home: undefined;
-  // Add other screens here
-};
 
-type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
 interface Props {
   navigation: HomeScreenNavigationProp;
+ 
 }
 
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
@@ -36,7 +31,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const [activeTab, setActiveTab] = useState<string>('All');
   const [livingRoomBrightness, setLivingRoomBrightness] = useState<number>(50);
   const [ceilingFanBrightness, setCeilingFanBrightness] = useState<number>(50);
-  const [acTemp, setAcTemp] = useState<string>('22°C'); // Changed to number
+  const [acTemp, setAcTemp] = useState<string>("22°C"); // Changed to number
   const [smartTvBrightness, setSmartTvBrightness] = useState<boolean>(true); // Changed to number
   const [bedroomBrightness, setBedroomBrightness] = useState<number>(50); // Changed to number
   const [cameraBrightness, setCameraBrightness] = useState<number>(50); // Changed to number
@@ -53,8 +48,13 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
     minute: '2-digit',
   });
 
+
   return (
+  
+  // <SafeAreaView style={{flex: 0, backgroundColor: '#08B7F6'}}/>
+  // <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>       
     <View style={styles.container}>
+      
       <ScrollView contentContainerStyle={styles.scroll}>
         {/* Header */}
         <View style={styles.mainHeader}>
@@ -164,7 +164,10 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
         <View style={styles.DeviceControll}>
           <Text>Device Controls</Text>
+
+          <TouchableOpacity onPress={() => navigation.navigate("ScanDevice")}>
           <Text style={styles.addDeviceText}>+ Add Devices</Text>
+        </TouchableOpacity>
         </View>
 
         {/* Device Controls */}
@@ -178,7 +181,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
               setBrightness: setLivingRoomBrightness,
               image: require('../../assets/icons/light-bulb.png'),
               color: '#FFB325',
-              desc: 'Brightness',
+              desc: 'Brightness :',
               flag:1,
             },
             {
@@ -189,26 +192,24 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
               setBrightness: setCeilingFanBrightness,
               image: require('../../assets/icons/fan.png'),
               color: '#08B7F6',
-              desc: 'Speed',
+              desc: 'Speed :',
               flag:1,
             },
             {
               label: 'Air Conditioner',
               state: ac,
               setter: setAC,
-              // brightness: acTemp,
-              // setBrightness: setAcTemp,
+              brightness: acTemp,
+              setBrightness: setAcTemp,
               image: require('../../assets/icons/air-conditioner.png'),
               color: '#08B7F6',
-              desc: 'Temprature',
-              
+              desc: 'Temprature :',
+              flag:1,
             },
             {
               label: 'Smart TV',
               state: smartTV,
               setter: setSmartTV,
-              // brightness: smartTvBrightness,
-              // setBrightness: setSmartTvBrightness,
               image: require('../../assets/icons/tv.png'),
               color: '#F3439E',
               desc:'ON',
@@ -221,7 +222,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
               setBrightness: setBedroomBrightness,
               image: require('../../assets/icons/light-bulb.png'),
               color: '#FFB325',
-              desc: 'Brightness',
+              desc: 'Brightness :',
               flag:1,
             },
             {
@@ -289,18 +290,9 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
               ) ? (
                 <View style={styles.brightnessContainer}>
                   <Text style={styles.brightnessText}>
-                    {device.desc} : {(device.flag === 1 ? device.brightness : '')}
+                    {device.desc} {(device.flag === 1 ? `${device.brightness}` : '')}
                   </Text>
-                  {/* <Slider
-                    style={{ width: '100%' }}
-                    minimumValue={0}
-                    maximumValue={100}
-                    step={1}
-                    value={device.brightness}
-                    minimumTrackTintColor="#00BFFF"
-                    maximumTrackTintColor="#ccc"
-                    onValueChange={device.setBrightness}
-                  /> */}
+
                 </View>
               ) : (
                 <View style={styles.brightnessContainer}>
@@ -340,14 +332,24 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
           </Text>
         </View>
       </ScrollView>
-    </View>
+      </View>
+  
+
+// </SafeAreaView>
+// </>
   );
 };
 
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: '#fff' },
+  safeArea:{
+    flex:1,
+    backgroundColor:'#08B7F6',
+    backfaceVisibility:'hidden',
+  },
+  container: { flex:1, backgroundColor: '#fff' },
+
   scroll: { padding: 0 },
   mainHeader: {
     backgroundColor: '#08B7F6', //08B7F6
@@ -498,7 +500,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   analyticsTitle: { fontSize: 16, fontWeight: '600' },
-  viewReport: { color: '#0288D1', fontSize: 13 },
+  viewReport: { color: '#08B7F6', fontSize: 13 },
   analyticsData: { fontSize: 13, marginTop: 4 },
   graph: {
     flexDirection: 'row',
@@ -509,15 +511,17 @@ const styles = StyleSheet.create({
   },
   graphBar: {
     width: 10,
-    backgroundColor: '#0288D1',
+    backgroundColor: '#08B7F6',
     borderRadius: 4,
   },
   energyTip: {
     marginTop: 12,
     fontSize: 13,
-    color: '#00796B',
+    color: '#34C759',
     backgroundColor: '#E0F2F1',
     padding: 10,
     borderRadius: 8,
+    borderWidth:2,
+    borderColor:'#34C759',
   },
 });

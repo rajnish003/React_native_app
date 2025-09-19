@@ -10,9 +10,10 @@ import SetupScreen from "../screens/SetupScreen";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import OtpScreen from "../screens/OtpScreen";
-// import ScanDevice from "../screens/ScanDevice";
+import ScanDevice from "../screens/ScanDevice";
 // import HomeScreen from "../screens/HomeScreen"
 import BottomTabs from "./BottomTabs"
+import QRScanScreen from "../screens/ScanQR"
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -26,14 +27,15 @@ const AppNavigator = () => {
     animation: "slide_from_right", //  adds smooth transition
   }}
 >
-        {/* 👇 keep Welcome screen here */}
+        {/*  keep Welcome screen here */}
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen name="Welcome2" component={WelcomeScreen2} />
-        <Stack.Screen name="welcome3" component={WelcomeScreen3} />
+        <Stack.Screen name="Welcome3" component={WelcomeScreen3} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Otp" component={OtpScreen} />
-        {/* <Stack.Screen name="ScanDevice" component={ScanDevice} /> */}
+        <Stack.Screen name="ScanDevice" component={ScanDevice} />
+        <Stack.Screen name="ScanQR" component={QRScanScreen} />
           {/* Main App (after login) */}
         <Stack.Screen name="MainTabs" component={BottomTabs} />
 
