@@ -14,6 +14,7 @@ import ScanDevice from "../screens/ScanDevice";
 // import HomeScreen from "../screens/HomeScreen"
 import BottomTabs from "./BottomTabs"
 import QRScanScreen from "../screens/ScanQR"
+import LightControlScreen from "../screens/LightColorScreen"
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -36,6 +37,7 @@ const AppNavigator = () => {
         <Stack.Screen name="Otp" component={OtpScreen} />
         <Stack.Screen name="ScanDevice" component={ScanDevice} />
         <Stack.Screen name="ScanQR" component={QRScanScreen} />
+        <Stack.Screen name="LightColor" component={LightControlScreen} />
           {/* Main App (after login) */}
         <Stack.Screen name="MainTabs" component={BottomTabs} />
 

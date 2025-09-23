@@ -48,7 +48,9 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <>
+  <SafeAreaView style={{flex: 0, backgroundColor: '#08B7F6'}}/>  
+    <View style={styles.container}>
       {loading && (
         <ActivityIndicator style={styles.loader} size="large" color="#00AEEF" />
       )}
@@ -122,7 +124,8 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
           <Text style={styles.registerText}>Register</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
+    </>
   );
 };
 

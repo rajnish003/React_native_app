@@ -12,4 +12,5 @@ export type RootStackParamList = {
   MainTabs:undefined;
   ScanDevice:undefined;
   ScanQR:undefined;
+  LightColor:undefined;
 };

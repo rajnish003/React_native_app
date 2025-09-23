@@ -47,12 +47,12 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
     hour: '2-digit',
     minute: '2-digit',
   });
-
+//08B7F6
 
   return (
-  
-  // <SafeAreaView style={{flex: 0, backgroundColor: '#08B7F6'}}/>
-  // <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>       
+  <> 
+  <SafeAreaView style={{flex: 0, backgroundColor: '#08B7F6'}}/>    
+  {/* <SafeAreaView style={{ flex: 1, backgroundColor: '#832222ff' }}>        */}
     <View style={styles.container}>
       
       <ScrollView contentContainerStyle={styles.scroll}>
@@ -236,8 +236,10 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
               desc: 'ON'
             },
           ].map((device, i) => (
+               
             <View key={i} style={styles.deviceCard}>
               <View style={styles.maindeviceHeader}>
+                <TouchableOpacity onPress={() => {navigation.navigate("LightColor")}} key={i}>
                 <View
                   style={{
                     backgroundColor: device.state ? device.color : '#D9D9D9',
@@ -258,6 +260,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                     resizeMode="contain"
                   />
                 </View>
+                </TouchableOpacity>
                 <Switch
                   value={
                     typeof device.state === 'boolean'
@@ -300,6 +303,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                 </View>
               )}
             </View>
+            
           ))}
         </View>
 
@@ -335,19 +339,19 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
       </View>
   
 
-// </SafeAreaView>
-// </>
+ {/* </SafeAreaView> */}
+ </>
   );
 };
 
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  safeArea:{
-    flex:1,
-    backgroundColor:'#08B7F6',
-    backfaceVisibility:'hidden',
-  },
+  // safeArea:{
+  //   flex:1,
+  //   backgroundColor:'#08B7F6',
+  //   backfaceVisibility:'hidden',
+  // },
   container: { flex:1, backgroundColor: '#fff' },
 
   scroll: { padding: 0 },
@@ -355,7 +359,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#08B7F6', //08B7F6
     width: '100%',
     padding: 18,
-    paddingTop: 60,
+    // paddingTop: 60,
   },
   sunIcon: { width: 25, height: 25 },
   header: {
@@ -455,6 +459,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     padding: 15,
   },
+
   deviceCard: {
     width: '48%',
     backgroundColor: '#fff',
@@ -521,7 +526,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E0F2F1',
     padding: 10,
     borderRadius: 8,
-    borderWidth:2,
+    borderWidth:1,
     borderColor:'#34C759',
   },
 });

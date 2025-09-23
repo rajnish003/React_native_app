@@ -64,7 +64,9 @@ const RegisterScreen =({ navigation }: { navigation: any })  => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <>
+    <SafeAreaView style={{flex: 0, backgroundColor: '#08B7F6'}}/>  
+    <View style={styles.container}>
       {/* Title */}
       <Text style={styles.title}>Homeasy</Text>
       <Text style={styles.subtitle}>Smart Living, Made Simple</Text>
@@ -158,7 +160,8 @@ const RegisterScreen =({ navigation }: { navigation: any })  => {
           <Text style={styles.link}>Login</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
+    </>
   );
 };
 

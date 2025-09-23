@@ -11,6 +11,8 @@ import {
   
 } from "react-native";
 
+import {SafeAreaView} from "react-native-safe-area-context";
+
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -86,6 +88,8 @@ const OtpScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   return (
+  <>
+    <SafeAreaView style={{flex: 0, backgroundColor: '#08B7F6'}}/>    
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
@@ -128,6 +132,7 @@ const OtpScreen: React.FC<Props> = ({ navigation }) => {
         <Text style={styles.link}>Contact Support</Text>
       </Text>
     </KeyboardAvoidingView>
+    </>
   );
 };
 
