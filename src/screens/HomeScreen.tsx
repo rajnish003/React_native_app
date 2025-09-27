@@ -358,7 +358,7 @@ const styles = StyleSheet.create({
   mainHeader: {
     backgroundColor: '#08B7F6', //08B7F6
     width: '100%',
-    padding: 18,
+    paddingHorizontal: 18,
     // paddingTop: 60,
   },
   sunIcon: { width: 25, height: 25 },

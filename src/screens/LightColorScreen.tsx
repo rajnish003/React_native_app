@@ -1,176 +1,173 @@
-// screens/LightControlScreen.tsx
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   Switch,
+  StyleSheet,
   TouchableOpacity,
-} from "react-native";
-import { ColorPicker } from "react-native-color-picker";
+  Image,
+} from 'react-native';
 import Slider from '@react-native-community/slider';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../navigation/types';
+import ColorPicker from 'react-native-wheel-color-picker';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import LinearGradient from 'react-native-linear-gradient';
 
-type LightColorScreenNavigationProp = StackNavigationProp<RootStackParamList>;
+const LightColorScreen = () => {
+  const [isEnabled, setIsEnabled] = useState(true);
+  const [brightness, setBrightness] = useState(75);
+  const [temperature, setTemperature] = useState(50);
+  const [color, setColor] = useState('#00BCD4');
 
-interface Props {
-  navigation: LightColorScreenNavigationProp;
-}
-const LightControlScreen: React.FC<Props> = ({navigation}) => {
-  const [colorEnabled, setColorEnabled] = useState(true);
-  const [brightness, setBrightness] = useState(0.75);
-  const [temperature, setTemperature] = useState(0.5);
-  const [selectedColor, setSelectedColor] = useState<string>("#ffffff");
+  const toggleSwitch = () => setIsEnabled(prev => !prev);
 
   return (
-    <View style={styles.container}>
+    <>
+      <SafeAreaView style={{ backgroundColor: '#08B7F6' }} />
+
       {/* Header */}
-      <Text style={styles.header}>Living Room Light</Text>
+      <View style={styles.header}>
+        <Image
+          style={{ width: 24, height: 24 }}
+          source={require('../../assets/icons/facebook_Icon.png')}
+        />      
+        <Text style={styles.headerText}> Living Room Light</Text>
+      </View>
 
-      {/* Color Picker */}
+      {/* Colors */}
       <View style={styles.card}>
-        <View style={styles.row}>
+        <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Colors</Text>
-          <Switch value={colorEnabled} onValueChange={setColorEnabled} />
+          <Switch onValueChange={toggleSwitch} value={isEnabled} />
         </View>
-
-        {colorEnabled && (
-          <ColorPicker
-            onColorSelected={(color) => setSelectedColor(color)}
-            style={{ height: 200, width: "100%" }}
-          />
-        )}
-
-        {/* Quick color presets */}
-        <View style={styles.colorRow}>
-          {["#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#00FFFF", "#FF00FF", "#0000FF"].map(
-            (c, i) => (
-              <TouchableOpacity
-                key={i}
-                style={[styles.colorCircle, { backgroundColor: c }]}
-                onPress={() => setSelectedColor(c)}
-              />
-            )
-          )}
-        </View>
+        <ColorPicker
+          color={color}
+          onColorChangeComplete={newColor => setColor(newColor)}
+          thumbSize={30}
+          sliderSize={30}
+          noSnap={true}
+          row={false}
+          swatches={true}
+          swatchesLast={true}
+          swatchesData={[
+            '#F44336',
+            '#FF9800',
+            '#FFEB3B',
+            '#4CAF50',
+            '#00BCD4',
+            '#E91E63',
+            '#9C27B0',
+          ]}
+        />
       </View>
 
       {/* Brightness */}
-     <View style={styles.card}>
-  <Text style={styles.sectionTitle}>
-    Brightness: {Math.round(brightness * 100)}%
-  </Text>
-  <Slider
-    style={{ width: "100%" }}
-    minimumValue={0}
-    maximumValue={1}
-    value={brightness}
-    minimumTrackTintColor="#00AEEF"
-    maximumTrackTintColor="#E0E0E0"  // Added for better visibility
-    onValueChange={setBrightness}
-  />
-</View>
+      <View style={styles.card}>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Brightness</Text>
+          <Text style={styles.valueText}>{Math.round(brightness)}%</Text>
+        </View>
+        <Slider
+          style={styles.slider}
+          minimumValue={0}
+          maximumValue={100}
+          value={brightness}
+          onValueChange={value => setBrightness(value)}
+          minimumTrackTintColor="#03A9F4"
+          maximumTrackTintColor="#D3D3D3"
+          thumbTintColor="#03A9F4"
+        />
+      </View>
 
       {/* Temperature */}
       <View style={styles.card}>
-        <Text style={styles.sectionTitle}>Temperature</Text>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Temperature</Text>
+          <Text style={styles.valueText}>{Math.round(temperature)}%</Text>
+        </View>
         <Slider
-          style={{ width: "100%" }}
+          style={styles.slider}
           minimumValue={0}
-          maximumValue={1}
+          maximumValue={100}
           value={temperature}
-          minimumTrackTintColor="#00AEEF"
-          onValueChange={setTemperature}
+          onValueChange={value => setTemperature(value)}
+          minimumTrackTintColor="#03A9F4"
+          maximumTrackTintColor="#D3D3D3"
+          thumbTintColor="#03A9F4"
         />
-        <View style={styles.rowBetween}>
-          <Text>Warm</Text>
-          <Text>Cool</Text>
+        <View style={styles.tempLabels}>
+          <Text style={styles.tempText}>Warm</Text>
+          <Text style={styles.tempText}>Cool</Text>
         </View>
       </View>
 
       {/* Quick Actions */}
       <View style={styles.card}>
-        <Text style={styles.sectionTitle}>Quick Actions</Text>
-        <View style={styles.row}>
+        <Text style={[styles.sectionTitle, { marginBottom: 10 }]}>
+          Quick Actions
+        </Text>
+        <View style={styles.quickActions}>
           <TouchableOpacity
-            style={styles.quickButton}
-            onPress={() => setBrightness(1)}
+            style={styles.button}
+            onPress={() => setBrightness(100)}
           >
-            <Text style={styles.quickButtonText}>Max Brightness</Text>
+            <Text style={styles.buttonText}>Max Brightness</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.quickButton}
-            onPress={() => setBrightness(0.5)}
+            style={styles.button}
+            onPress={() => setTemperature(100)}
           >
-            <Text style={styles.quickButtonText}>50% Brightness</Text>
+            <Text style={styles.buttonText}>Max Cool</Text>
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </>
   );
 };
 
-export default LightControlScreen;
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#F4F8FB",
-    padding: 16,
-  },
+  container: { flex: 1, backgroundColor: '#F5FCFF', padding: 15 },
   header: {
-    fontSize: 20,
-    fontWeight: "600",
-    marginBottom: 16,
-    color: "#000",
+    padding: 15,
+    backgroundColor: '#08B7F6',
+    marginBottom: 15,
   },
+  headerText: { color: '#FFF', fontSize: 20, fontWeight: 'bold' },
   card: {
-    backgroundColor: "#fff",
-    padding: 16,
+    backgroundColor: '#FFF',
+    padding: 15,
     borderRadius: 12,
-    marginBottom: 16,
-    shadowColor: "#000",
+    marginBottom: 15,
+    shadowColor: '#000',
     shadowOpacity: 0.05,
-    shadowRadius: 5,
-    elevation: 2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 3,
   },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: "500",
-    marginBottom: 8,
-    color: "#000",
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
   },
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+  sectionTitle: { fontSize: 16, color: '#03A9F4', fontWeight: '600' },
+  slider: { width: '100%', height: 40 },
+  valueText: { color: '#333', fontWeight: '500' },
+  tempLabels: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 5,
   },
-  rowBetween: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 8,
-  },
-  colorRow: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 12,
-  },
-  colorCircle: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-  },
-  quickButton: {
+  tempText: { color: '#666', fontSize: 12 },
+  quickActions: { flexDirection: 'row', justifyContent: 'space-between' },
+  button: {
     flex: 1,
-    backgroundColor: "#00AEEF",
     padding: 12,
-    marginHorizontal: 4,
+    backgroundColor: '#E0F2FF',
     borderRadius: 8,
-    alignItems: "center",
+    alignItems: 'center',
+    marginHorizontal: 5,
   },
-  quickButtonText: {
-    color: "#fff",
-    fontWeight: "500",
-  },
+  buttonText: { color: '#03A9F4', fontWeight: '600' },
 });
+
+export default LightColorScreen;
