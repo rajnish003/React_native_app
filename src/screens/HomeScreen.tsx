@@ -359,7 +359,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#08B7F6', //08B7F6
     width: '100%',
     paddingHorizontal: 18,
-    // paddingTop: 60,
+    paddingTop: 20,
   },
   sunIcon: { width: 25, height: 25 },
   header: {

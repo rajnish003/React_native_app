@@ -196,6 +196,7 @@ const styles = StyleSheet.create({
     width: 29,
     height: 21,
     resizeMode: 'contain',
+    tintColor:'#ccc'
   },
   forgotBtn: {
     alignSelf: 'flex-end',

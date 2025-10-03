@@ -13,4 +13,5 @@ export type RootStackParamList = {
   ScanDevice:undefined;
   ScanQR:undefined;
   LightColor:undefined;
+  Setting:undefined;
 };
