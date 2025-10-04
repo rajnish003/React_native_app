@@ -8,9 +8,11 @@ type SettingNavProp = NativeStackNavigationProp<RootStackParamList>;
 type Props = { navigation: SettingNavProp };
 
 const SettingsScreen: React.FC<Props> = ({ navigation }) => {
-    const [isEnabled, setIsEnabled] = React.useState(true);
+    const [pushEnabled, setPushEnabled] = React.useState(true);
+    const [darkMode, setDarkMode] = React.useState(false);
+    const [autoConnect, setAutoConnect] = React.useState(true);
 
-    const toggleSwitch = () => setIsEnabled(prev => !prev);
+    // const toggleSwitch = () => setIsEnabled(prev => !prev);
 
     return (
         <>
@@ -42,44 +44,65 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
                     <View style={styles.sectionItems}>
                         <View style={styles.itemRow}>
                             <View style={styles.itemLeft}>
-                                <Image
-                                    source={require('../../assets/icons/wifi_icon.png')}
-                                    style={styles.itemIcon}
-                                />
+                                <View style={styles.imageContainer}>
+                                    <Image
+                                        source={require('../../assets/icons/notification_icon.png')}
+                                        style={styles.itemIcon}
+                                    />
+                                </View>
                                 <View style={styles.itemText}>
                                     <Text style={styles.itemTitle}>Push Notification</Text>
                                     <Text style={styles.itemSubtitle}>Get alerts for device changes</Text>
                                 </View>
                             </View>
-                            <Switch onValueChange={toggleSwitch} value={isEnabled} />
+                            <Switch
+                                value={pushEnabled}
+                                onValueChange={() => setPushEnabled(prev => !prev)}
+                                trackColor={{ false: "#767577", true: "#81b0ff" }}
+                                thumbColor={pushEnabled ? "#53CDF9" : "#f4f3f4"}
+                            />
                         </View>
 
                         <View style={styles.itemRow}>
                             <View style={styles.itemLeft}>
-                                <Image
-                                    source={require('../../assets/icons/wifi_icon.png')}
-                                    style={styles.itemIcon}
-                                />
+                                <View style={[styles.imageContainer, { backgroundColor: '#6718F0' }]}>
+                                    <Image
+                                        source={require('../../assets/icons/temprature_moon.png')}
+                                        style={styles.itemIcon}
+                                    />
+                                </View>
                                 <View style={styles.itemText}>
                                     <Text style={styles.itemTitle}>Dark Mode</Text>
                                     <Text style={styles.itemSubtitle}>Switch to Dark Theme</Text>
                                 </View>
                             </View>
-                            <Switch onValueChange={toggleSwitch} value={isEnabled} />
+                            <Switch
+                                value={darkMode}
+                                onValueChange={() => setDarkMode(prev => !prev)}
+                                trackColor={{ false: "#767577", true: "#81b0ff" }}
+                                thumbColor={darkMode ? "#6718F0" : "#f4f3f4"}
+                            />
                         </View>
 
                         <View style={styles.itemRow}>
                             <View style={styles.itemLeft}>
-                                <Image
-                                    source={require('../../assets/icons/wifi_icon.png')}
-                                    style={styles.itemIcon}
-                                />
+                                <View style={[styles.imageContainer, { backgroundColor: '#50E876' }]}>
+                                    <Image
+                                        source={require('../../assets/icons/wifi_icon.png')}
+                                        style={styles.itemIcon}
+                                    />
+                                </View>
                                 <View style={styles.itemText}>
                                     <Text style={styles.itemTitle}>Auto Connect Devices</Text>
                                     <Text style={styles.itemSubtitle}>Automatically connect new devices</Text>
                                 </View>
                             </View>
-                            <Switch onValueChange={toggleSwitch} value={isEnabled} />
+                            <Switch
+                                value={autoConnect}
+                                onValueChange={() => setAutoConnect(prev => !prev)}
+                                trackColor={{ false: "#767577", true: "#81b0ff" }}
+                                thumbColor={autoConnect ? "#50E876" : "#f4f3f4"}
+                            />
                         </View>
                     </View>
                 </View>
@@ -92,10 +115,12 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
                     <View style={styles.sectionItems}>
                         <View style={styles.itemRow}>
                             <View style={styles.itemLeft}>
-                                <Image
-                                    source={require('../../assets/icons/wifi_icon.png')}
-                                    style={styles.itemIcon}
-                                />
+                                <View style={[styles.imageContainer]}>
+                                    <Image
+                                        source={require('../../assets/icons/user_icon_black.png')}
+                                        style={styles.itemIcon}
+                                    />
+                                </View>
                                 <View style={styles.itemText}>
                                     <Text style={styles.itemTitle}>Profile Settings</Text>
                                     <Text style={styles.itemSubtitle}>Manage your personal information</Text>
@@ -109,10 +134,12 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
 
                         <View style={styles.itemRow}>
                             <View style={styles.itemLeft}>
-                                <Image
-                                    source={require('../../assets/icons/wifi_icon.png')}
-                                    style={styles.itemIcon}
-                                />
+                                <View style={[styles.imageContainer , { backgroundColor: '#F32A2A' }]}>
+                                    <Image
+                                        source={require('../../assets/icons/lock_icon.png')}
+                                        style={styles.itemIcon}
+                                    />
+                                </View>
                                 <View style={styles.itemText}>
                                     <Text style={styles.itemTitle}>Security & Privacy</Text>
                                     <Text style={styles.itemSubtitle}>Password, biometrics, data privacy</Text>
@@ -126,10 +153,12 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
 
                         <View style={styles.itemRow}>
                             <View style={styles.itemLeft}>
-                                <Image
-                                    source={require('../../assets/icons/wifi_icon.png')}
-                                    style={styles.itemIcon}
-                                />
+                                <View style={[styles.imageContainer, { backgroundColor: '#50E876' }]}>
+                                    <Image
+                                        source={require('../../assets/icons/phone_icon.png')}
+                                        style={styles.itemIcon}
+                                    />
+                                </View>
                                 <View style={styles.itemText}>
                                     <Text style={styles.itemTitle}>Connected Devices</Text>
                                     <Text style={styles.itemSubtitle}>Manage paired smart devices</Text>
@@ -151,10 +180,12 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
                     <View style={styles.sectionItems}>
                         <View style={styles.itemRow}>
                             <View style={styles.itemLeft}>
-                                <Image
-                                    source={require('../../assets/icons/wifi_icon.png')}
-                                    style={styles.itemIcon}
-                                />
+                                <View style={[styles.imageContainer , { backgroundColor: '#FFA600' }]}>
+                                    <Image
+                                        source={require('../../assets/icons/paint_icon.png')}
+                                        style={styles.itemIcon}
+                                    />
+                                </View>
                                 <View style={styles.itemText}>
                                     <Text style={styles.itemTitle}>Theme & Appearance</Text>
                                     <Text style={styles.itemSubtitle}>Customize your experience</Text>
@@ -168,13 +199,60 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
 
                         <View style={styles.itemRow}>
                             <View style={styles.itemLeft}>
-                                <Image
-                                    source={require('../../assets/icons/wifi_icon.png')}
-                                    style={styles.itemIcon}
-                                />
+                                <View style={[styles.imageContainer,{backgroundColor: '#04DE3B'}]}>
+                                    <Image
+                                        source={require('../../assets/icons/webBrowser_icon.png')}
+                                        style={styles.itemIcon}
+                                    />
+                                </View>
                                 <View style={styles.itemText}>
                                     <Text style={styles.itemTitle}>Language & Region</Text>
                                     <Text style={styles.itemSubtitle}>English (US), San Francisco</Text>
+                                </View>
+                            </View>
+                            <Image
+                                source={require('../../assets/icons/arrow_right.png')}
+                                style={styles.arrowIcon}
+                            />
+                        </View>
+                    </View>
+                </View>
+
+                {/* Support Section */}
+                <View style={styles.section}>
+                    <View style={styles.sectionHeader}>
+                        <Text style={styles.sectionTitle}>Support</Text>
+                    </View>
+                    <View style={styles.sectionItems}>
+                        <View style={styles.itemRow}>
+                            <View style={styles.itemLeft}>
+                                <View style={styles.imageContainer}>
+                                    <Image
+                                        source={require('../../assets/icons/questionMark_icon.png')}
+                                        style={styles.itemIcon}
+                                    />
+                                </View>
+                                <View style={styles.itemText}>
+                                    <Text style={styles.itemTitle}>Help & Support</Text>
+                                    <Text style={styles.itemSubtitle}>FAQ’s, contact support</Text>
+                                </View>
+                            </View>
+                            <Image
+                                source={require('../../assets/icons/arrow_right.png')}
+                                style={styles.arrowIcon}
+                            />
+                        </View>
+
+                        <View style={styles.itemRow}>
+                            <View style={styles.itemLeft}>
+                                <View style={[styles.imageContainer , { backgroundColor: '#FF0000' }]}>
+                                    <Image
+                                        source={require('../../assets/icons/logout_icon.png')}
+                                        style={styles.itemIcon}
+                                    />
+                                </View>
+                                <View style={styles.itemText}>
+                                    <Text style={[styles.itemTitle, {color:'#FF0000'}]}>Sign Out</Text>
                                 </View>
                             </View>
                             <Image
@@ -202,34 +280,41 @@ const styles = StyleSheet.create({
     },
     profileSection: {
         alignItems: 'center',
-        paddingVertical: 40,
+        paddingVertical: 20,
         paddingHorizontal: 20,
-        backgroundColor: '#F5FCFF',
+        backgroundColor: '#08B7F6',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        gap: 12,
     },
     profileImageContainer: {
-        marginBottom: 16,
-    },
-    profileImage: {
-        width: 100,
-        height: 100,
-        tintColor: '#03A9F4',
+        marginLeft: 4,
+        backgroundColor: '#e0e9ee84',
+        padding: 10,
         borderRadius: 50,
     },
+    profileImage: {
+        width: 40,
+        height: 40,
+        tintColor: '#FFFFFF',
+
+
+    },
     profileInfo: {
-        alignItems: 'center',
+        alignItems: 'flex-start',
     },
     profileName: {
-        fontSize: 24,
+        fontSize: 16,
         fontWeight: 'bold',
-        color: '#1D1B20',
+        color: '#FFFFFF',
         marginBottom: 4,
     },
     profileEmail: {
         fontSize: 16,
-        color: '#666',
+        color: '#FFFFFF',
     },
     section: {
-        marginBottom: 20,
+        marginTop: 20,
         backgroundColor: 'white',
         marginHorizontal: 16,
         borderRadius: 12,
@@ -270,18 +355,28 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
     },
-    itemIcon: {
-        width: 18,
-        height: 18,
-        tintColor: '#03A9F4',
+    imageContainer: {
+        backgroundColor: '#08B7F6',
+        padding: 6,
+        borderRadius: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
         marginRight: 12,
+        width: 32,
+        height: 32
+    },
+    itemIcon: {
+        width: 16,
+        height: 16,
+        tintColor: '#FFFFFF',
+        // marginRight: 12,
     },
     itemText: {
         flex: 1,
     },
     itemTitle: {
-        fontSize: 16,
-        fontWeight: '500',
+        fontSize: 14,
+        fontWeight: '600',
         color: '#1D1B20',
         marginBottom: 2,
     },
