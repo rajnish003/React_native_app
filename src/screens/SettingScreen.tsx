@@ -134,7 +134,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
 
                         <View style={styles.itemRow}>
                             <View style={styles.itemLeft}>
-                                <View style={[styles.imageContainer , { backgroundColor: '#F32A2A' }]}>
+                                <View style={[styles.imageContainer, { backgroundColor: '#F32A2A' }]}>
                                     <Image
                                         source={require('../../assets/icons/lock_icon.png')}
                                         style={styles.itemIcon}
@@ -180,7 +180,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
                     <View style={styles.sectionItems}>
                         <View style={styles.itemRow}>
                             <View style={styles.itemLeft}>
-                                <View style={[styles.imageContainer , { backgroundColor: '#FFA600' }]}>
+                                <View style={[styles.imageContainer, { backgroundColor: '#FFA600' }]}>
                                     <Image
                                         source={require('../../assets/icons/paint_icon.png')}
                                         style={styles.itemIcon}
@@ -199,7 +199,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
 
                         <View style={styles.itemRow}>
                             <View style={styles.itemLeft}>
-                                <View style={[styles.imageContainer,{backgroundColor: '#04DE3B'}]}>
+                                <View style={[styles.imageContainer, { backgroundColor: '#04DE3B' }]}>
                                     <Image
                                         source={require('../../assets/icons/webBrowser_icon.png')}
                                         style={styles.itemIcon}
@@ -245,14 +245,14 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
 
                         <View style={styles.itemRow}>
                             <View style={styles.itemLeft}>
-                                <View style={[styles.imageContainer , { backgroundColor: '#FF0000' }]}>
+                                <View style={[styles.imageContainer, { backgroundColor: '#FF0000' }]}>
                                     <Image
                                         source={require('../../assets/icons/logout_icon.png')}
                                         style={styles.itemIcon}
                                     />
                                 </View>
                                 <View style={styles.itemText}>
-                                    <Text style={[styles.itemTitle, {color:'#FF0000'}]}>Sign Out</Text>
+                                    <Text style={[styles.itemTitle, { color: '#FF0000' }]}>Sign Out</Text>
                                 </View>
                             </View>
                             <Image
