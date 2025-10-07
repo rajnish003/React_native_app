@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { View, Text, StyleSheet, Alert } from "react-native";
-import { Camera, useCameraDevices,CameraPermissionStatus,CodeScanner,Code as VisionCameraCode,
-  CodeScannerFrame } from "react-native-vision-camera";
+import { Camera, useCameraDevices,CodeScanner,Code as VisionCameraCode } from "react-native-vision-camera";
 
-type Code = {
-  value: string;
-  type: string;
-};
+// type Code = {
+//   value: string;
+//   type: string;
+// };
 
 type QRScanScreenProps = {
   onScanSuccess: (code: string) => string | void ;
@@ -43,7 +42,7 @@ const QRScanScreen: React.FC<QRScanScreenProps> = ({ onScanSuccess }) => {
     initializeCamera();
   }, []);
 
-  const handleBarCodeScanned = useCallback((codes: VisionCameraCode[], frame: CodeScannerFrame) => {
+  const handleBarCodeScanned = useCallback((codes: VisionCameraCode[], ) => {
     if (!codes?.length) return;
 
     setIsScanning((prev) => {

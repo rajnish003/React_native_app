@@ -14,4 +14,6 @@ export type RootStackParamList = {
   ScanQR:undefined;
   LightColor:undefined;
   Setting:undefined;
+  ProfileSetting:undefined;
+  SecuritySetting:undefined;
 };

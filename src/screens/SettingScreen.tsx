@@ -1,7 +1,7 @@
 import React from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
-import { View, Text, Image, StyleSheet, ScrollView, Switch } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, Switch ,TouchableOpacity} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 type SettingNavProp = NativeStackNavigationProp<RootStackParamList>;
@@ -121,10 +121,10 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
                                         style={styles.itemIcon}
                                     />
                                 </View>
-                                <View style={styles.itemText}>
+                                <TouchableOpacity style={styles.itemText} onPress={() => navigation.navigate('ProfileSetting')}>
                                     <Text style={styles.itemTitle}>Profile Settings</Text>
                                     <Text style={styles.itemSubtitle}>Manage your personal information</Text>
-                                </View>
+                                </TouchableOpacity>
                             </View>
                             <Image
                                 source={require('../../assets/icons/arrow_right.png')}
@@ -132,7 +132,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
                             />
                         </View>
 
-                        <View style={styles.itemRow}>
+                        <TouchableOpacity style={styles.itemRow}  onPress={() => navigation.navigate('SecuritySetting')}>
                             <View style={styles.itemLeft}>
                                 <View style={[styles.imageContainer, { backgroundColor: '#F32A2A' }]}>
                                     <Image
@@ -149,7 +149,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
                                 source={require('../../assets/icons/arrow_right.png')}
                                 style={styles.arrowIcon}
                             />
-                        </View>
+                        </TouchableOpacity>
 
                         <View style={styles.itemRow}>
                             <View style={styles.itemLeft}>

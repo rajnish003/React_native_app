@@ -86,11 +86,6 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
             onPress={() => setShowPassword(!showPassword)}
             style={styles.eyeIcon}
           >
-            {/* <Icon
-            name={showPassword ? "eye-outline" : "eye-off-outline"}
-            size={22}
-            color="#888"
-          /> */}
 
             <Image
             source={showPassword

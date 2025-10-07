@@ -17,19 +17,41 @@ const ProfileSettingScreen: React.FC<Props> = ({ navigation }) => {
                 contentContainerStyle={styles.scrollContent}
                 showsVerticalScrollIndicator={false}
             >
-                <View>
+                <View style={styles.header}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Image
                         source={require('../../assets/icons/back_arrow.png')}
-                        style={{ width: 50, height: 50, margin: 20 }}
+                        style={{ width: 22, height: 22, marginLeft: 20, tintColor: '#ffffff' }}
                     />
+                    </TouchableOpacity>
                     <Text style={styles.headerText}>Profile Settings</Text>
                 </View>
 
                 <View style={styles.profileCard}>
-                    <Image
-                        source={require('../assets/profile.png')} // replace with your avatar icon
-                        style={styles.profileImage}
-                    />
+
+                    <View style={{ position: 'relative' }}>
+                        <View style={styles.imageContainer}>
+                            <Image
+                                source={require('../../assets/icons/user_icon_black.png')} // replace with your avatar icon
+                                style={styles.profileImage}
+                            />
+                        </View>
+                        <TouchableOpacity style={{
+                            position: 'absolute', width: 40, height: 40, 
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: '#08B7F6',
+                            top: 95, left: 90,
+                            borderRadius: 30,
+                        }}>
+                            <Image
+                               
+                                source={require('../../assets/icons/camera_icon.png')} // replace with your camera icon
+                                style={{ width: 20, height: 20, position: 'absolute', tintColor: '#ffffff' }}
+                            />
+                        </TouchableOpacity>
+                    </View>
                     <Text style={styles.profileName}>Alex Johnson</Text>
                     <Text style={styles.profileRole}>Software Engineer</Text>
                 </View>
@@ -71,7 +93,7 @@ const ProfileSettingScreen: React.FC<Props> = ({ navigation }) => {
                     <View style={styles.inputRow}>
                         <View style={styles.inputBox}>
                             <Text style={styles.label}>Date of Birth</Text>
-                            <TextInput style={styles.input} value="Alex" editable={false} />
+                            <TextInput style={styles.input} value="15/03/2003" editable={false} />
                         </View>
                         <View style={styles.inputBox}>
                             <Text style={styles.label}>Occupation</Text>
@@ -107,17 +129,25 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: '#F5FCFF',
+        // backgroundColor: '#F5FCFF',
     },
     scrollContent: {
         paddingBottom: 30,
     },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+        backgroundColor: '#08B7F6',
+        paddingTop: 30,
+        paddingBottom: 20,
+    },
     headerText: {
-        fontSize: 24,       
+        fontSize: 16,
         fontWeight: 'bold',
-        marginBottom: 20,
+        // marginBottom: 20,
         marginLeft: 20,
-        color: '#333',
+        color: '#ffffff',
     },
 
     profileCard: {
@@ -130,16 +160,30 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         marginBottom: 20,
     },
+
+    imageContainer: {
+        width: 120,
+        height: 120,
+        backgroundColor: '#95CBDE',
+        borderRadius: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+
     profileImage: {
         width: 70,
         height: 70,
         borderRadius: 35,
         marginBottom: 10,
+        tintColor: '#ffffff',
+        // backgroundColor: '#E0E0E0',
     },
     profileName: {
         fontSize: 18,
         fontWeight: '600',
         color: '#000',
+        marginTop: 5,
     },
     profileRole: {
         fontSize: 14,
