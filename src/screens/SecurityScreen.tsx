@@ -95,23 +95,188 @@ const SecurityScreen: React.FC<Props> = ({ navigation }) => {
 
                 </View>
 
-                    <View style={styles.line}></View>
+                <View style={styles.line}></View>
 
+                {/* Card Biometric finger Section */}
                 <View style={styles.cardConatiner}>
-                    <View style={styles.imageContainer}>
-                        <Image
-                            source={require('../../assets/icons/fingerprint_icon.png')}
-                            style={{ width: 14, height: 14 ,tintColor:'#ffffff'}}
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
+                        <View style={styles.imageContainer}>
+                            <Image
+                                source={require('../../assets/icons/fingerprint_icon.png')}
+                                style={{ width: 14, height: 14, tintColor: '#ffffff' }}
+                            />
+                        </View>
+                        <View style={styles.titleContainer}>
+                            <Text style={styles.title}>Biometric Authentication</Text>
+                            <Text style={styles.subTitle}>Use fingerprint</Text>
+                        </View >
+                    </View>
+                    <View>
+                        <SwitchControl
+                            value={true}
+                            onValueChange={(val: boolean) => val}
                         />
                     </View>
-                    <View style={styles.titleContainer}>  
-                        <Text style={styles.title}>Biometric Authentication</Text>
-                        <Text style={styles.subTitle}>Use fingerprint or face ID</Text>
+                </View>
+
+                {/*  Card Biometric face Section */}
+                <View style={styles.cardConatiner}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
+                        <View style={[styles.imageContainer, { backgroundColor: '#03A9F4' }]}>
+                            <Image
+                                source={require('../../assets/icons/user_icon_black.png')}
+                                style={{ width: 14, height: 14, tintColor: '#ffffff' }}
+                            />
+                        </View>
+                        <View style={styles.titleContainer}>
+                            <Text style={styles.title}>Biometric Authentication</Text>
+                            <Text style={styles.subTitle}>Use face ID</Text>
+                        </View >
                     </View>
-                    <SwitchControl 
-                    value={true}
-                    onValueChange={(val: boolean) => val} 
-                    />
+                    <View>
+                        <SwitchControl
+                            value={true}
+                            onValueChange={(val: boolean) => val}
+                        />
+                    </View>
+                </View>
+
+                {/*  Card Two-Factor Authentication Section */}
+                <View style={styles.cardConatiner}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
+                        <View style={[styles.imageContainer, { backgroundColor: '#FFA600' }]}>
+                            <Image
+                                source={require('../../assets/icons/phone_icon.png')}
+                                style={{ width: 14, height: 14, tintColor: '#ffffff' }}
+                            />
+                        </View>
+                        <View style={styles.titleContainer}>
+                            <Text style={styles.title}>Two-Factor Authentication</Text>
+                            <Text style={styles.subTitle}>Extra security via SMS or app</Text>
+                        </View >
+                    </View>
+                    <View>
+                        <SwitchControl
+                            value={true}
+                            onValueChange={(val: boolean) => val}
+                        />
+                    </View>
+                </View>
+
+                {/* Privacy Setting Section */}
+                <View>
+                    <Text style={styles.privacy_text}>Privacy Setting</Text>
+
+                    {/*  Card Data Sharing Section */}
+                    <View style={styles.cardConatiner}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
+                            <View style={[styles.imageContainer, { backgroundColor: '#5A15CF' }]}>
+                                <Image
+                                    source={require('../../assets/icons/security.png')}
+                                    style={{ width: 14, height: 14, tintColor: '#ffffff' }}
+                                />
+                            </View>
+                            <View style={styles.titleContainer}>
+                                <Text style={styles.title}>Data Sharing</Text>
+                                <Text style={styles.subTitle}>Share usage data for improvements</Text>
+                            </View >
+                        </View>
+                        <View>
+                            <SwitchControl
+                                value={true}
+                                onValueChange={(val: boolean) => val}
+                            />
+                        </View>
+                    </View>
+
+                    {/*  Card ocation tracking Section */}
+                    <View style={styles.cardConatiner}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
+                            <View style={[styles.imageContainer, { backgroundColor: '#F32A2A' }]}>
+                                <Image
+                                    source={require('../../assets/icons/location.png')}
+                                    style={{ width: 14, height: 14, tintColor: '#ffffff' }}
+                                />
+                            </View>
+                            <View style={styles.titleContainer}>
+                                <Text style={styles.title}>Location Tracking</Text>
+                                <Text style={styles.subTitle}>Use location for automation</Text>
+                            </View >
+                        </View>
+                        <View>
+                            <SwitchControl
+                                value={true}
+                                onValueChange={(val: boolean) => val}
+                            />
+                        </View>
+                    </View>
+
+                    {/*  Card Analytics collection Section */}
+                    <View style={styles.cardConatiner}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
+                            <View style={[styles.imageContainer, { backgroundColor: '#08B7F6' }]}>
+                                <Image
+                                    source={require('../../assets/icons/analysis.png')}
+                                    style={{ width: 14, height: 14, tintColor: '#ffffff' }}
+                                />
+                            </View>
+                            <View style={styles.titleContainer}>
+                                <Text style={styles.title}>Analytics Collection</Text>
+                                <Text style={styles.subTitle}>Help improve app performance</Text>
+                            </View >
+                        </View>
+                        <View>
+                            <SwitchControl
+                                value={true}
+                                onValueChange={(val: boolean) => val}
+                            />
+                        </View>
+                    </View>
+
+                    {/*  Card Device Access Section */}
+                    <View style={styles.cardConatiner}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
+                            <View style={[styles.imageContainer, { backgroundColor: '#50E876' }]}>
+                                <Image
+                                    source={require('../../assets/icons/phone_icon.png')}
+                                    style={{ width: 14, height: 14, tintColor: '#ffffff' }}
+                                />
+                            </View>
+                            <View style={styles.titleContainer}>
+                                <Text style={styles.title}>Device Access</Text>
+                                <Text style={styles.subTitle}>Allow camera and microphone access</Text>
+                            </View >
+                        </View>
+                        <View>
+                            <SwitchControl
+                                value={true}
+                                onValueChange={(val: boolean) => val}
+                            />
+                        </View>
+                    </View>
+
+                    {/*  Card Device Access Section */}
+                    <View style={styles.cardConatiner}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
+                            <View style={[styles.imageContainer, { backgroundColor: '#7F9684' }]}>
+                                <Image
+                                    source={require('../../assets/icons/lock_icon.png')}
+                                    style={{ width: 14, height: 14, tintColor: '#ffffff' }}
+                                />
+                            </View>
+                            <View style={styles.titleContainer}>
+                                <Text style={styles.title}>Auto-Lock</Text>
+                                <Text style={styles.subTitle}>Lock app when inactive</Text>
+                            </View >
+                        </View>
+                        <View>
+                            <SwitchControl
+                                value={true}
+                                onValueChange={(val: boolean) => val}
+                            />
+                        </View>
+                    </View>
+
                 </View>
 
             </ScrollView>
@@ -178,43 +343,52 @@ const styles = StyleSheet.create({
         tintColor: '#ccc'
     },
     line: {
-    flex: 1,
-    height: 1,
-    backgroundColor: '#ddd',
-    width: '90%',
-    alignSelf: 'center',
-    marginVertical: 20,
+        flex: 1,
+        height: 1,
+        backgroundColor: '#ddd',
+        width: '90%',
+        alignSelf: 'center',
+        marginVertical: 20,
     },
-   cardConatiner:{
+    cardConatiner: {
         flexDirection: 'row',
-        alignItems: 'center',   
+        alignItems: 'center',
+        justifyContent: 'space-between',
         paddingHorizontal: 20,
         gap: 15,
+        marginBottom: 20,
     },
 
-    imageContainer:{
+    imageContainer: {
         width: 40,
-        height: 40 ,
+        height: 40,
         backgroundColor: '#50E876',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 35,
 
     },
-    titleContainer:{
-       
+    titleContainer: {
+
     },
-    title:{
-        fontSize: 12,
+    title: {
+        fontSize: 14,
         fontWeight: '600',
         color: '#000',
         marginBottom: 5,
     },
-    subTitle:{
-        fontSize: 10,
-        color: '#666',      
+    subTitle: {
+        fontSize: 14,
+        color: '#666',
 
     },
-    
+
+    privacy_text: {
+        fontSize: 16,
+        color: '#000000',       
+        fontWeight: '600',
+        paddingHorizontal: 20,
+        marginBottom: 18,
+    },
 
 });

@@ -151,7 +151,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
                             />
                         </TouchableOpacity>
 
-                        <View style={styles.itemRow}>
+                        <TouchableOpacity style={styles.itemRow} onPress={() => navigation.navigate('connectedDevices')}>
                             <View style={styles.itemLeft}>
                                 <View style={[styles.imageContainer, { backgroundColor: '#50E876' }]}>
                                     <Image
@@ -168,7 +168,7 @@ const SettingsScreen: React.FC<Props> = ({ navigation }) => {
                                 source={require('../../assets/icons/arrow_right.png')}
                                 style={styles.arrowIcon}
                             />
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
 

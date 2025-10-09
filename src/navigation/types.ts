@@ -16,4 +16,5 @@ export type RootStackParamList = {
   Setting:undefined;
   ProfileSetting:undefined;
   SecuritySetting:undefined;
+  connectedDevices:undefined;
 };

@@ -18,6 +18,7 @@ import LightControlScreen from "../screens/LightColorScreen"
 import SettingsScreen from "../screens/SettingScreen";
 import ProfileSettingScreen from "../screens/ProfileSettingScreen";
 import SecurityScreen from "../screens/SecurityScreen";
+import ConnectedDevicesScreen from "../screens/ConectedDevicesScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -44,6 +45,7 @@ const AppNavigator = () => {
         <Stack.Screen name="Setting" component={SettingsScreen} />
         <Stack.Screen name="ProfileSetting" component={ProfileSettingScreen} />
         <Stack.Screen name="SecuritySetting" component={SecurityScreen} />
+        <Stack.Screen name="connectedDevices" component={ConnectedDevicesScreen} />
           {/* Main App (after login) */}
         <Stack.Screen name="MainTabs" component={BottomTabs} />
 
